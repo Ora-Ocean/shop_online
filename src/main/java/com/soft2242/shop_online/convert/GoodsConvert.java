@@ -4,7 +4,8 @@ import com.soft2242.shop_online.entity.Goods;
 import com.soft2242.shop_online.vo.GoodsVO;
 import com.soft2242.shop_online.vo.RecommendGoodsVO;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Mapper;
+
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 

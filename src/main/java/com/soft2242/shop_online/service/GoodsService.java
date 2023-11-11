@@ -5,6 +5,7 @@ import com.soft2242.shop_online.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.soft2242.shop_online.query.Query;
 import com.soft2242.shop_online.query.RecommendByTabGoodsQuery;
+import com.soft2242.shop_online.vo.GoodsVO;
 import com.soft2242.shop_online.vo.IndexTabRecommendVO;
 import com.soft2242.shop_online.vo.RecommendGoodsVO;
 
@@ -21,5 +22,13 @@ public interface GoodsService extends IService<Goods> {
     IndexTabRecommendVO getTabRecommendGoodsByTabId(RecommendByTabGoodsQuery query);
 
     PageResult<RecommendGoodsVO> getRecommendGoodsByPage(Query query);
+    /**
+     * 根据id 获取商品详情
+     *
+     * @param id
+     * @return
+     */
+    GoodsVO getGoodsDetail(Integer id);
+
 
 }
