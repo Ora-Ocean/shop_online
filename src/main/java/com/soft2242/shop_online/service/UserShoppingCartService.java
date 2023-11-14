@@ -22,7 +22,7 @@ public interface UserShoppingCartService extends IService<UserShoppingCart> {
     CartGoodsVO addShopCart (CartQuery query);
     List<CartGoodsVO> shopCartList(Integer integer);
     CartGoodsVO editCart(EditCartQuery query);
-
+    void removeCartGoods(Integer userId,List<Integer> ids);
 
 
 }
