@@ -2,6 +2,7 @@ package com.soft2242.shop_online.controller;
 
 import com.soft2242.shop_online.common.result.Result;
 import com.soft2242.shop_online.query.CartQuery;
+import com.soft2242.shop_online.query.EditCartQuery;
 import com.soft2242.shop_online.service.UserShoppingCartService;
 import com.soft2242.shop_online.vo.CartGoodsVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,6 +45,14 @@ public class UserShoppingCartController {
         List<CartGoodsVO> list = userShoppingCartService.shopCartList(userId);
         return Result.ok(list);
     }
+    @Operation(summary = "修改购物车单品")
+    @PutMapping("edit")
+    public Result<CartGoodsVO> editShopCart(@RequestBody @Validated EditCartQuery query) {
+        CartGoodsVO goodsVO = userShoppingCartService.editCart(query);
+        return Result.ok(goodsVO);
+
+    }
+
 
 
 }
