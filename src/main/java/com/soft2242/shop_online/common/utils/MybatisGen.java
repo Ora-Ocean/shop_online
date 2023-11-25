@@ -28,7 +28,7 @@ public class MybatisGen {
         outputFileStringMap.put(OutputFile.xml, pathXml);
         FastAutoGenerator.create("jdbc:mysql://121.43.101.104:3306/shop_online", "root", "soft@2023")
                 .globalConfig(builder -> {
-                    builder.author("ycshang").enableSwagger(); // 设置作者// 开启 swagger 模式
+                    builder.author("ldh").enableSwagger(); // 设置作者// 开启 swagger 模式
 
                 })
                 .packageConfig(builder -> {

@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Tag(name = "推荐管理")
 @AllArgsConstructor
-@RequestMapping("/shop_online/indexRecommend")
+@RequestMapping("home")
 public class IndexRecommendController {
     private final IndexRecommendService indexRecommendService;
 

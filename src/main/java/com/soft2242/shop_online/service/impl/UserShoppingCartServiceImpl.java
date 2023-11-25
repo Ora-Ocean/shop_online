@@ -31,16 +31,16 @@ public class UserShoppingCartServiceImpl extends ServiceImpl<UserShoppingCartMap
     private final GoodsMapper goodsMapper;
 
     @Override
-    public CartGoodsVO addShopCart(CartQuery query){
-        Goods goods=goodsMapper.selectById(query.getId());
-        if(goods ==null){
+    public CartGoodsVO addShopCart(CartQuery query) {
+        Goods goods = goodsMapper.selectById(query.getId());
+        if (goods == null) {
             throw new ServerException("商品不存在");
         }
-        if(query.getCount()>goods.getInventory()){
+        if (query.getCount() > goods.getInventory()) {
             throw new ServerException("商品库存不足");
         }
         //插入购物车
-        UserShoppingCart userShoppingCart=new UserShoppingCart();
+        UserShoppingCart userShoppingCart = new UserShoppingCart();
         userShoppingCart.setUserId(query.getUserId());
         userShoppingCart.setGoodsId(goods.getId());
         userShoppingCart.setPrice(goods.getPrice());
@@ -50,7 +50,7 @@ public class UserShoppingCartServiceImpl extends ServiceImpl<UserShoppingCartMap
         baseMapper.insert(userShoppingCart);
 
         //返回用户添加购物车信息
-        CartGoodsVO goodsVO=new CartGoodsVO();
+        CartGoodsVO goodsVO = new CartGoodsVO();
         goodsVO.setId(userShoppingCart.getId());
         goodsVO.setName(goods.getName());
         goodsVO.setAttrsText(query.getAttrsText());
@@ -61,13 +61,15 @@ public class UserShoppingCartServiceImpl extends ServiceImpl<UserShoppingCartMap
         goodsVO.setCount(query.getCount());
         goodsVO.setPicture(goods.getCover());
         goodsVO.setDiscount(goods.getDiscount());
-        return  goodsVO;
+        return goodsVO;
     }
+
     @Override
-    public List<CartGoodsVO> shopCartList(Integer userId){
-        List<CartGoodsVO> list =baseMapper.getCartGoodsInfo(userId);
-        return  list;
+    public List<CartGoodsVO> shopCartList(Integer userId) {
+        List<CartGoodsVO> list = baseMapper.getCartGoodsInfo(userId);
+        return list;
     }
+
     @Override
     public CartGoodsVO editCart(EditCartQuery query) {
         UserShoppingCart userShoppingCart = baseMapper.selectById(query.getId());
@@ -96,19 +98,33 @@ public class UserShoppingCartServiceImpl extends ServiceImpl<UserShoppingCartMap
         goodsVO.setDiscount(goods.getDiscount());
         return goodsVO;
     }
+
     @Override
-    public void removeCartGoods(Integer userId,List<Integer> ids){
+    public void removeCartGoods(Integer userId, List<Integer> ids) {
+        //1 查询用户的购物车列表
+        List<UserShoppingCart> cartList = baseMapper.selectList(new LambdaQueryWrapper<UserShoppingCart>().eq(UserShoppingCart::getUserId, userId));
+        if (cartList.size() == 0) {
+            return;
+        }
+        //2 与需要删除的购物车取交集
+        List<UserShoppingCart> deleteCartList = cartList.stream().filter(item -> ids.contains(item.getId())).collect(Collectors.toList());
+        //3 删除购物车信息
+        removeBatchByIds(deleteCartList);
+    }
+    @Override
+    public void editCartSelected(Boolean selected,Integer userId){
         //1 查询用户的购物车列表
         List<UserShoppingCart> cartList=baseMapper.selectList(new LambdaQueryWrapper<UserShoppingCart>().eq(UserShoppingCart::getUserId,userId));
         if(cartList.size()==0){
             return;
         }
-        //2 与需要删除的购物车取交集
-        List<UserShoppingCart> deleteCartList =cartList.stream().filter(item ->ids.contains(item.getId())).collect(Collectors.toList());
-        //3 删除购物车信息
-        removeBatchByIds(deleteCartList);
+        //2 批量修改购物车选中状态
+        cartList.stream().forEach(item -> item.setSelected(selected));
+        //3 数据库数据更新
+        saveOrUpdateBatch(cartList);
     }
-
-
-
 }
+
+
+
+

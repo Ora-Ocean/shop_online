@@ -1,16 +1,12 @@
 package com.soft2242.shop_online.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -22,9 +18,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("t_user_shipping_address")
-@ApiModel(value = "UserShippingAddress对象", description = "")
-public class UserShippingAddress {
+@TableName("t_user_Shopping_address")
+@ApiModel(value = "UserShoppingAddress对象", description = "")
+public class UserShoppingAddress {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
@@ -60,12 +56,12 @@ public class UserShippingAddress {
 
     @ApiModelProperty("是否为默认地址(0-否，1-是)")
     @TableField("is_default")
-    private Byte isDefault;
+    private Integer isDefault;
 
     @ApiModelProperty("逻辑删除(0-未删除，1-已删除)")
     @TableField("delete_flag")
     @TableLogic
-    private Byte deleteFlag;
+    private Integer deleteFlag;
 
     @ApiModelProperty("创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)

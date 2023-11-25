@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "商品模块")
 @AllArgsConstructor
-@RequestMapping("/shop_online/goods")
+@RequestMapping("goods")
 public class GoodsController {
     private final GoodsService goodsService;
 

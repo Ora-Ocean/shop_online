@@ -3,9 +3,6 @@ package com.soft2242.shop_online.vo;
 import com.soft2242.shop_online.entity.GoodsDetail;
 import com.soft2242.shop_online.entity.GoodsSpecification;
 import com.soft2242.shop_online.entity.GoodsSpecificationDetail;
-import com.soft2242.shop_online.entity.GoodsDetail;
-import com.soft2242.shop_online.entity.GoodsSpecification;
-import com.soft2242.shop_online.entity.GoodsSpecificationDetail;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

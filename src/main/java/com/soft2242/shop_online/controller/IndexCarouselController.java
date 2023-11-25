@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Tag(name="首页管理")
 @AllArgsConstructor
-@RequestMapping("/shop_online/indexCarousel")
+@RequestMapping("home")
 public class IndexCarouselController {
     private final IndexCarouselService indexCarouselService;
 
